@@ -26,8 +26,8 @@ website = Label(text="Website:", font=(FONT_NAME,11, "normal"), bg=BACKGROUND)
 website.grid(row=1, column=0)
 
 # ------------- Website input --------------
-website_input = Entry(width=15, font=(FONT_NAME, 11, "normal"))
-website_input.grid(row=1, column= 1, columnspan=3, pady=2)
+website_input = Entry(width=20, font=(FONT_NAME, 11, "normal"))
+website_input.grid(row=1, column= 1, columnspan=3, pady=3, sticky="ew")
 
 # ----------------------------------------------------------------------------------------------
 
@@ -38,8 +38,8 @@ email = Label(text="Email/Username", bg=BACKGROUND, font=(FONT_NAME,11, "normal"
 email.grid(column=0, row=2 )
 
 # -------------- Email Input ----------------
-email_input = Entry(font=(FONT_NAME,11, "normal"), width=15)
-email_input.grid(row=2, column=1, columnspan=3, pady=2)
+email_input = Entry(font=(FONT_NAME,11, "normal"), width=20)
+email_input.grid(row=2, column=1, columnspan=3, pady=3, sticky="ew")
 
 
 
@@ -49,10 +49,15 @@ password = Label(text="Password", font=(FONT_NAME, 11,"normal"), bg=BACKGROUND)
 password.grid(row=3, column=0)
 
 # ----------------pass_input -----------------
-pass_input = Entry(font=(FONT_NAME,11, "normal"), width=15)
-pass_input.grid(row=3, column=1, columnspan=3, pady=2)
+pass_input = Entry(font=(FONT_NAME,11, "normal"), width=20)
+pass_input.grid(row=3, column=1,columnspan=2,  pady=3)
 
 # ----------------------Generate Pass ------------------
 generate_pass = Button(text="Generate password", width=15)
-generate_pass.grid(row=3,column=3, padx=20, pady=20)
+generate_pass.grid(row=3,column=3, padx=3)
+
+
+# ------------------ ADD ------------------------
+add = Button(text="add", font=(FONT_NAME, 13, "normal"))
+add.grid(column=1, row=4, pady=5, columnspan=3, sticky="ew",)
 window.mainloop()
