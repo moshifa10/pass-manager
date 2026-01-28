@@ -3,7 +3,8 @@ from tkinter import messagebox
 import random
 import string
 BACKGROUND = '#816f6f'
-PATH = '/C:/Users/bumos/Documents'
+PATH = '/C:/Users/bumos/Documents/data.txt'
+PATH_LINUX = "/home/wtc/Documents/data.txt"
 FONT_NAME = "Courier"
 
 
@@ -25,22 +26,25 @@ def password_generator():
 
     for _ in range(8):
         chosen_pass.append(random.choice(every_char))
-    print(email_input.get())
-    return ''.join(chosen_pass)
-
+    pass_input.insert(0, "".join(chosen_pass))
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
 def save_pass():
     # email_input.get()
-    em, web, pas = (email_input.get(), website_input.get, pass_input.get())
-    check_all = [em,web,pas]
+    em, web, pas = (email_input.get(), website_input.get(), pass_input.get())
+    check_all = [True if len(i)> 0 else False for i in (em,web,pas)]
 
-    if check_all:
-        with open(file=PATH, mode="a+") as data:
-            data.write(f"{web}|    {em}|     {pas}")
+    if all(check_all):
+        with open(file=PATH_LINUX, mode="a+") as data:
+            data.write(f"{web} |    {em} |     {pas}\n")
             # tkin
-            messagebox.showinfo("Password created !!!!!!!!!!!!")
+        messagebox.showinfo("Password created !!!!!!!!!!!!")
+
+    else:
+        for i in check_all:
+            if i == "":
+                messagebox.showerror(title=f"Missed {i} fill out please!!!", width=30)
     
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -90,7 +94,7 @@ pass_input = Entry(font=(FONT_NAME,11, "normal"), width=20)
 pass_input.grid(row=3, column=1,columnspan=2,  pady=3)
 
 # ----------------------Generate Pass ------------------
-generate_pass = Button(text="Generate password", width=15)
+generate_pass = Button(text="Generate password", width=15, command=pass_input)
 generate_pass.grid(row=3,column=3, padx=3)
 
 
