@@ -1,11 +1,47 @@
 from tkinter import *
+from tkinter import messagebox
+import random
+import string
 BACKGROUND = '#816f6f'
 PATH = '/C:/Users/bumos/Documents'
 FONT_NAME = "Courier"
 
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+def password_generator():
+    alpha = list(filter(lambda x: x.isalpha(),[chr(i) for i in range(65, 122)]))
+    numbers = "1234567890"
+    punctuation = string.punctuation
+
+    every_char = []
+
+    for _ in range(10):
+        every_char.append(random.choice(alpha))
+        every_char.append(random.choice(numbers))
+        every_char.append(random.choice(punctuation))
+
+
+    chosen_pass = []
+
+    for _ in range(8):
+        chosen_pass.append(random.choice(every_char))
+    print(email_input.get())
+    return ''.join(chosen_pass)
+
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+
+def save_pass():
+    # email_input.get()
+    em, web, pas = (email_input.get(), website_input.get, pass_input.get())
+    check_all = [em,web,pas]
+
+    if check_all:
+        with open(file=PATH, mode="a+") as data:
+            data.write(f"{web}|    {em}|     {pas}")
+            # tkin
+            messagebox.showinfo("Password created !!!!!!!!!!!!")
+    
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -43,6 +79,7 @@ email_input.grid(row=2, column=1, columnspan=3, pady=3, sticky="ew")
 
 
 
+
 # ---------------------- Password ----------------------------------------------------------------
 # ------------------pass--------------------
 password = Label(text="Password", font=(FONT_NAME, 11,"normal"), bg=BACKGROUND)
@@ -58,6 +95,12 @@ generate_pass.grid(row=3,column=3, padx=3)
 
 
 # ------------------ ADD ------------------------
-add = Button(text="add", font=(FONT_NAME, 13, "normal"))
+add = Button(text="add", font=(FONT_NAME, 13, "normal"), command=save_pass)
 add.grid(column=1, row=4, pady=5, columnspan=3, sticky="ew",)
+
+
+
+# ----------- message box --------------------
+# message =
+
 window.mainloop()
