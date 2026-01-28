@@ -3,7 +3,7 @@ from tkinter import messagebox
 import random
 import string
 BACKGROUND = '#816f6f'
-PATH = '/C:/Users/bumos/Documents/data.txt'
+PATH = "C:/Users/bumos/Documents/data.txt"
 PATH_LINUX = "/home/wtc/Documents/data.txt"
 FONT_NAME = "Courier"
 
@@ -26,7 +26,10 @@ def password_generator():
 
     for _ in range(8):
         chosen_pass.append(random.choice(every_char))
-    pass_input.insert(0, "".join(chosen_pass))
+
+    random.shuffle(chosen_pass)
+    password = "".join(chosen_pass)
+    pass_input.insert(0, password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -43,10 +46,10 @@ def save_pass():
     else:
         is_ok = messagebox.askokcancel(title=web, message=f"These are the details entered: \nEmail: {em}\nPassword: {pas}\nIs it ok to save?")
         if is_ok:
-            with open(file=PATH_LINUX, mode="a+") as data:
+            with open(file=PATH, mode="a") as data:
                 data.write(f"{web} |    {em} |     {pas}\n")
                 # tkin
-            messagebox.showinfo("Password created !!!!!!!!!!!!")
+            messagebox.showinfo(title="created !!!!!!!!!!!!", message="You created the passmanager")
             email_input.delete(0, END)
             website_input.delete(0, END)
             pass_input.delete(0, END)
@@ -100,7 +103,7 @@ pass_input = Entry(font=(FONT_NAME,11, "normal"), width=20)
 pass_input.grid(row=3, column=1,columnspan=2,  pady=3)
 
 # ----------------------Generate Pass ------------------
-generate_pass = Button(text="Generate password", width=15, command=pass_input)
+generate_pass = Button(text="Generate password", width=15, command=password_generator)
 generate_pass.grid(row=3,column=3, padx=3)
 
 
