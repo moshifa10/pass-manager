@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import string
+import pyperclip
 BACKGROUND = '#816f6f'
 PATH = "C:/Users/bumos/Documents/data.txt"
 PATH_LINUX = "/home/wtc/Documents/data.txt"
@@ -30,6 +31,7 @@ def password_generator():
     random.shuffle(chosen_pass)
     password = "".join(chosen_pass)
     pass_input.insert(0, password)
+    pyperclip.copy(pass_input.get())
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
