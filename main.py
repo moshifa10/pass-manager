@@ -35,16 +35,22 @@ def save_pass():
     em, web, pas = (email_input.get(), website_input.get(), pass_input.get())
     check_all = [True if len(i)> 0 else False for i in (em,web,pas)]
 
-    if all(check_all):
-        with open(file=PATH_LINUX, mode="a+") as data:
-            data.write(f"{web} |    {em} |     {pas}\n")
-            # tkin
-        messagebox.showinfo("Password created !!!!!!!!!!!!")
+    
 
+
+    if not all(check_all):
+        messagebox.showinfo(title="Oops", message="Please don't leave any fields empty!")
     else:
-        for i in check_all:
-            if i == "":
-                messagebox.showerror(title=f"Missed {i} fill out please!!!", width=30)
+        is_ok = messagebox.askokcancel(title=web, message=f"These are the details entered: \nEmail: {em}\nPassword: {pas}\nIs it ok to save?")
+        if is_ok:
+            with open(file=PATH_LINUX, mode="a+") as data:
+                data.write(f"{web} |    {em} |     {pas}\n")
+                # tkin
+            messagebox.showinfo("Password created !!!!!!!!!!!!")
+            email_input.delete(0, END)
+            website_input.delete(0, END)
+            pass_input.delete(0, END)
+
     
 
 # ---------------------------- UI SETUP ------------------------------- #
