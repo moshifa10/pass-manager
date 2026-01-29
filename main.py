@@ -33,6 +33,8 @@ def password_generator():
     pass_input.insert(0, password)
     pyperclip.copy(pass_input.get())
 
+
+
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
 def save_pass():
