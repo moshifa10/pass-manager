@@ -9,6 +9,8 @@ PATH_LINUX = "/home/wtc/Documents/data.txt"
 FONT_NAME = "Courier"
 
 
+
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def password_generator():
     alpha = list(filter(lambda x: x.isalpha(),[chr(i) for i in range(65, 122)]))
@@ -33,6 +35,8 @@ def password_generator():
     pass_input.insert(0, password)
     pyperclip.copy(pass_input.get())
 
+
+  
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
