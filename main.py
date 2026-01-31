@@ -3,9 +3,9 @@ from tkinter import messagebox
 import random
 import string
 import pyperclip
+import json
 BACKGROUND = '#816f6f'
-PATH = "C:/Users/bumos/Documents/data.txt"
-PATH_LINUX = "/home/wtc/Documents/data.txt"
+PATH = "./data.json"
 FONT_NAME = "Courier"
 
 
@@ -54,9 +54,23 @@ def save_pass():
     else:
         is_ok = messagebox.askokcancel(title=web, message=f"These are the details entered: \nEmail: {em}\nPassword: {pas}\nIs it ok to save?")
         if is_ok:
-            with open(file=PATH, mode="a") as data:
-                data.write(f"{web} |    {em} |     {pas}\n")
-                # tkin
+            structure = {
+                web:{
+                    "email": em,
+                    "password": pas
+                }
+            }
+            try:
+                with open(file=PATH, mode="r") as data:
+                    data: dict = json.load(data)
+                    data.update(structure)
+
+            except FileNotFoundError:
+                with open(file=PATH, mode="w") as file:
+                    json.dump(structure, file, indent=4)
+            else:
+                with open(file=PATH, mode="w") as file:
+                    json.dump(data, file, indent=4)
             messagebox.showinfo(title="created !!!!!!!!!!!!", message="You created the passmanager")
             email_input.delete(0, END)
             website_input.delete(0, END)
