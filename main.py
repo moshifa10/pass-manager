@@ -18,12 +18,12 @@ def search():
             em = data[website_input.get()]["email"]
             pas = data[website_input.get()]["password"]
         except KeyError:
-            messagebox.showinfo(title="Error", message="No data file Found")
+            messagebox.showinfo(title="Error", message=f"No details for the {website_input.get()} exist.")
         else:
             messagebox.showinfo(title=website_input.get(), message=f"Website: {website_input.get()}\nEmail: {em}\nPasswors: {pas}")
 
     except FileNotFoundError:
-        messagebox.showinfo(title="File Not found", message="Create your first")
+        messagebox.showinfo(title="Error", message="No data file Found")
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
@@ -49,10 +49,6 @@ def password_generator():
     password = "".join(chosen_pass)
     pass_input.insert(0, password)
     pyperclip.copy(pass_input.get())
-
-
-  
-
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -103,9 +99,9 @@ window.title("Password Manager")
 window.config(bg=BACKGROUND, padx=50, pady=50)
 
 # canvas
-canvas = Canvas(width=250, height=224, bg=BACKGROUND, highlightthickness=0, )
+canvas = Canvas(width=200, height=200, bg=BACKGROUND, highlightthickness=0, )
 photo = PhotoImage(file="./logo.png")
-canvas.create_image(250//2, 112, image=photo)
+canvas.create_image(200//2, 200//2, image=photo)
 canvas.grid(column=1, row=0)
 
 # --------------------------------------------------------------------------------------------
@@ -114,12 +110,13 @@ website = Label(text="Website:", font=(FONT_NAME,11, "normal"), bg=BACKGROUND)
 website.grid(row=1, column=0)
 
 # ------------- Website input --------------
-website_input = Entry(width=20, font=(FONT_NAME, 11, "normal"))
-website_input.grid(row=1, column= 1, columnspan=2, pady=3, sticky="ew")
+website_input = Entry(width=35, font=(FONT_NAME, 11, "normal"))
+website_input.grid(row=1, column= 1, columnspan=2)
+website_input.focus()
 
 # Search button 
-search = Button(text="Search", font=(FONT_NAME, 13, "normal"), width=15, command=search)
-search.grid(column=2, row=1, padx=3)
+search = Button(text="Search", font=(FONT_NAME, 11, "normal"), command=search)
+search.grid(column=3, row=1, sticky="ew")
 
 # ----------------------------------------------------------------------------------------------
 
@@ -130,10 +127,8 @@ email = Label(text="Email/Username", bg=BACKGROUND, font=(FONT_NAME,11, "normal"
 email.grid(column=0, row=2 )
 
 # -------------- Email Input ----------------
-email_input = Entry(font=(FONT_NAME,11, "normal"), width=20)
-email_input.grid(row=2, column=1, columnspan=3, pady=3)
-
-
+email_input = Entry(font=(FONT_NAME,11, "normal"), width=35)
+email_input.grid(row=2, column=1, columnspan=2)
 
 
 # ---------------------- Password ----------------------------------------------------------------
@@ -142,17 +137,16 @@ password = Label(text="Password", font=(FONT_NAME, 11,"normal"), bg=BACKGROUND)
 password.grid(row=3, column=0)
 
 # ----------------pass_input -----------------
-pass_input = Entry(font=(FONT_NAME,11, "normal"), width=20)
-pass_input.grid(row=3, column=1,columnspan=2,  pady=3)
+pass_input = Entry(font=(FONT_NAME,11, "normal"))
+pass_input.grid(row=3, column=1, sticky="ew")
 
 # ----------------------Generate Pass ------------------
-generate_pass = Button(text="Generate password", width=15, command=password_generator)
-generate_pass.grid(row=3,column=3, padx=3)
-
+generate_pass = Button(text="Generate password", command=password_generator)
+generate_pass.grid(row=3,column=3, sticky="ew")
 
 # ------------------ ADD ------------------------
-add = Button(text="add", font=(FONT_NAME, 13, "normal"), command=save_pass)
-add.grid(column=1, row=4, pady=5, columnspan=3, sticky="ew",)
+add = Button(text="add", font=(FONT_NAME, 13, "normal"), command=save_pass, width=31)
+add.grid(column=1, row=4, columnspan=2)
 
 
 
