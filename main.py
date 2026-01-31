@@ -8,7 +8,22 @@ BACKGROUND = '#816f6f'
 PATH = "./data.json"
 FONT_NAME = "Courier"
 
+# ---------------------------- Search Button ------------------------------- #
+def search():
+    try:
+        with open(file=PATH, mode="r") as data_file:
+            data = json.load(data_file)
 
+        try:
+            em = data[website_input.get()]["email"]
+            pas = data[website_input.get()]["password"]
+        except KeyError:
+            messagebox.showinfo(title="Error", message="No data file Found")
+        else:
+            messagebox.showinfo(title=website_input.get(), message=f"Website: {website_input.get()}\nEmail: {em}\nPasswors: {pas}")
+
+    except FileNotFoundError:
+        messagebox.showinfo(title="File Not found", message="Create your first")
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
@@ -61,27 +76,29 @@ def save_pass():
                 }
             }
             try:
-                with open(file=PATH, mode="r") as data:
-                    data: dict = json.load(data)
-                    data.update(structure)
+                with open(file=PATH, mode="r") as file:
+                    data: dict = json.load(file)
 
             except FileNotFoundError:
                 with open(file=PATH, mode="w") as file:
                     json.dump(structure, file, indent=4)
             else:
+                data.update(structure)
                 with open(file=PATH, mode="w") as file:
                     json.dump(data, file, indent=4)
-            messagebox.showinfo(title="created !!!!!!!!!!!!", message="You created the passmanager")
-            email_input.delete(0, END)
-            website_input.delete(0, END)
-            pass_input.delete(0, END)
+
+            finally:
+                messagebox.showinfo(title="created !!!!!!!!!!!!", message="Created the password ")
+                email_input.delete(0, END)
+                website_input.delete(0, END)
+                pass_input.delete(0, END)
 
     
 
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
-window.minsize(height=400, width=500)
+# window.minsize(height=400, width=500)
 window.title("Password Manager")
 window.config(bg=BACKGROUND, padx=50, pady=50)
 
@@ -98,7 +115,11 @@ website.grid(row=1, column=0)
 
 # ------------- Website input --------------
 website_input = Entry(width=20, font=(FONT_NAME, 11, "normal"))
-website_input.grid(row=1, column= 1, columnspan=3, pady=3, sticky="ew")
+website_input.grid(row=1, column= 1, columnspan=2, pady=3, sticky="ew")
+
+# Search button 
+search = Button(text="Search", font=(FONT_NAME, 13, "normal"), width=15, command=search)
+search.grid(column=2, row=1, padx=3)
 
 # ----------------------------------------------------------------------------------------------
 
@@ -110,7 +131,7 @@ email.grid(column=0, row=2 )
 
 # -------------- Email Input ----------------
 email_input = Entry(font=(FONT_NAME,11, "normal"), width=20)
-email_input.grid(row=2, column=1, columnspan=3, pady=3, sticky="ew")
+email_input.grid(row=2, column=1, columnspan=3, pady=3)
 
 
 
